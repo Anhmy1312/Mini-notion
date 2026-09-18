@@ -1,0 +1,149 @@
+/* 1. Đặt biến màu mặc định (Light Theme) */
+:root {
+    --bg-main: #f8f9fa;
+    --bg-card: #ffffff;
+    --text-color: #2c3e50;
+    --border-color: #e9ecef;
+    --sidebar-bg: #2c3e50;
+    --sidebar-text: #ecf0f1;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* 2. Biến màu khi ở chế độ Dark Theme */
+body.dark-theme {
+    --bg-main: #18191a;
+    --bg-card: #242526;
+    --text-color: #e4e6eb;
+    --border-color: #393a3b;
+    --sidebar-bg: #1c1e21;
+    --sidebar-text: #e4e6eb;
+    --shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 3. Xóa khoảng cách mặc định và cài đặt font chữ */
+*{
+    marrgin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 4. Chia bố cục 2 cột bằng Flexbox */
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--text-color);
+}
+
+/* 5. Trang trí cột Menu bên trái (Sidebar) */
+aside{
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 20px;
+}
+
+aside h3 {
+    font-size: 1.2rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    
+}
+
+aside ul {
+    list-style: none; /* Ẩn dấu chấm tròn của thẻ danh sách */
+}
+
+aside ul li {
+    margin-bottom: 10px;
+}
+
+aside ul li a {
+    color: var(--sidebar-text);
+    text-decoration: none; /* Ẩn gạch chân của link */
+    display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    opacity: 0.8;
+}
+aside ul li a:hover, aside ul li a.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    opacity: 1;
+    font-weight: bold;
+}
+
+/* 6. Trang trí cột Nội dung chính */
+main {
+    flex: 1; /* Ra lệnh cho cột này chiếm toàn bộ diện tích còn lại */
+    padding: 30px;
+}
+
+/* 7. Trang trí khu vực Form nhập liệu */
+section {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+}
+
+
+form label {
+    display: block; /* Ép chữ xuống dòng */
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    background-color: var(--bg-main);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+form button {
+    margin-top: 18px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+/* 8. Trang trí danh sách tài liệu */
+main ul {
+    list-style: none;
+}
+
+main ul li {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    display: flex; /* Dàn hàng ngang */
+    justify-content: space-between; /* Đẩy nội dung ra 2 mép */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    box-shadow: var(--shadow);
+}
+
+
+main ul li:hover {
+    transform: translateY(-2px);
+}
+
+/* 9. Hiệu ứng gạch ngang khi tài liệu đã hoàn thành */
+.completed-doc {
+    text-decoration: line-through;
+    opacity: 0.5;
+}

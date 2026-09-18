@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Mini-Notion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body
+    style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: var(--bg-main);">
+
+    <div
+        style="background-color: var(--bg-card); padding: 30px; border-radius: 10px; border: 1px solid var(--border-color); width: 350px; box-shadow: var(--shadow);">
+        <h2 id="formTitle" style="margin-bottom: 20px; color: var(--text-color);">Đăng nhập Mini-Notion</h2>
+
+        <form id="authForm">
+            <label for="username" style="display: block; margin-top: 10px; font-weight: 600;">Tài khoản:</label>
+            <input type="text" id="username" required
+                style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--bg-main); color: var(--text-color);">
+
+            <label for="password" style="display: block; margin-top: 15px; font-weight: 600;">Mật khẩu:</label>
+            <input type="password" id="password" required
+                style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--bg-main); color: var(--text-color);">
+
+            <button type="submit" id="submitBtn"
+                style="width: 100%; margin-top: 20px; padding: 10px; background-color: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Đăng
+                nhập</button>
+        </form>
+
+        <p style="margin-top: 15px; text-align: center; font-size: 0.9rem;">
+            <span id="toggleText">Chưa có tài khoản?</span>
+            <a href="#" id="toggleMode" style="color: #3498db; text-decoration: none; font-weight: bold;">Đăng ký
+                ngay</a>
+        </p>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8080/api/auth';
+        const authForm = document.getElementById('authForm');
+        const formTitle = document.getElementById('formTitle');
+        const submitBtn = document.getElementById('submitBtn');
+        const toggleText = document.getElementById('toggleText');
+        const toggleMode = document.getElementById('toggleMode');
+
+        let isLoginMode = true;
+
+        // Toggle between Login and Register modes
+        toggleMode.addEventListener('click', (e) => {
+            e.preventDefault();
+            isLoginMode = !isLoginMode;
+            if (isLoginMode) {
+                formTitle.innerText = "Đăng nhập Mini-Notion";
+                submitBtn.innerText = "Đăng nhập";
+                toggleText.innerText = "Chưa có tài khoản?";
+                toggleMode.innerText = "Đăng ký ngay";
+            } else {
+                formTitle.innerText = "Đăng ký tài khoản mới";
+                submitBtn.innerText = "Đăng ký";
+                toggleText.innerText = "Đã có tài khoản?";
+                toggleMode.innerText = "Đăng nhập";
+            }
+        });
+
+        // Handle Form Submission
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const endpoint = isLoginMode ? `${API_URL}/login` : `${API_URL}/register`;
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (isLoginMode) {
+                        // Save JWT Token to localStorage and redirect to main app
+                        localStorage.setItem('jwt_token', data.token);
+                        localStorage.setItem('username', username);
+
+                        alert('Đăng nhập thành công!');
+                        window.location.href = 'index.html';
+                    } else {
+                        alert('Đăng ký thành công! Hãy chuyển sang đăng nhập.');
+                        isLoginMode = true;
+                        formTitle.innerText = "Đăng nhập Mini-Notion";
+                        submitBtn.innerText = "Đăng nhập";
+                        toggleText.innerText = "Chưa có tài khoản?";
+                        toggleMode.innerText = "Đăng ký ngay";
+                    }
+                } else {
+                    alert(data.message || 'Thao tác thất bại!');
+                }
+            } catch (error) {
+                console.error('Lỗi kết nối:', error);
+                alert('Không thể kết nối đến server!');
+            }
+        });
+    </script>
+</body>
+
+</html>

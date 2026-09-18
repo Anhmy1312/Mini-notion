@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Notion: Quản lý học tập</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <aside>
+        <!-- Cột bên trái: Menu điều hướng -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="margin: 0;">Menu</h3>
+            <!-- Nút bật/tắt Dark Mode -->
+            <button id="themeToggleBtn" onclick="toggleTheme()"
+                style="background: none; border: 1px solid #ffffff44; color: white; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">🌙
+                Tối</button>
+        </div>
+
+        <div id="userGreeting" style="margin-bottom: 20px; font-size: 0.95rem; font-weight: bold; color: #2ecc71; padding-bottom: 15px; border-bottom: 1px solid #444;">
+            <!-- Username will be injected here by JavaScript -->
+        </div>
+
+        <ul>
+            <li><a href="#" class="menu-item active" onclick="event.preventDefault(); filterDocuments('')">Tất cả tài liệu</a></li>
+            <li><a href="#" class="menu-item" onclick="event.preventDefault(); filterDocuments('toan')">Toán học</a></li>
+            <li><a href="#" class="menu-item" onclick="event.preventDefault(); filterDocuments('ly')">Vật lý</a></li>
+            <li><a href="#" class="menu-item" onclick="event.preventDefault(); filterDocuments('hoa')">Hóa học</a></li>
+            <li><a href="#" class="menu-item" onclick="event.preventDefault(); filterDocuments('anh')">Tiếng Anh</a></li>
+        </ul>
+
+        <button onclick="logout()"
+            style="width: 100%; margin-top: 20px; padding: 10px; background-color: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+            🚪 Đăng xuất
+        </button>
+    </aside>
+
+    <main>
+        <h1>Quản lý Tài liệu học tập</h1>
+
+        <section>
+            <h2>Thêm tài liệu mới</h2>
+            <form>
+                <!-- Thêm trường ẩn này để lưu ID khi sửa -->
+                <input type="hidden" id="docId">
+
+                <!-- Tên tài liệu -->
+                <label for="docName">Tên tài liệu:</label>
+                <input type="text" id="docName" placeholder="Ví dụ: Công thức đạo hàm.." required>
+                <!-- Link tài liệu -->
+                <label for="docLink">Đường dẫn (Link):</label>
+                <input type="url" id="docLink" placeholder="http://..." required>
+
+                <!-- Chọn môn học -->
+                <label for="subject">Môn học:</label>
+                <select id="subject">
+                    <option value="toan">Toán học</option>
+                    <option value="ly">Vật lý</option>
+                    <option value="hoa">Hóa học</option>
+                    <option value="anh">Tiếng Anh</option>
+                </select>
+
+                <!-- Đặt thêm id cho nút bấm -->
+                <button type="submit" id="submitBtn">Thêm tài liệu</button>
+            </form>
+        </section>
+
+        <!-- Khu vực Danh sách tài liệu hiện có -->
+        <section>
+            <h2>Danh sách tài liệu</h2>
+
+            <!-- 📊 Thêm Thanh Thống kê Tiến độ (Dashboard) -->
+            <div id="dashboard"
+                style="background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0; margin-bottom: 20px;">
+                <h3 style="margin-bottom: 8px; color: #2c3e50; font-size: 1.1rem;">📊 Tiến độ học tập</h3>
+                <p id="progressText" style="margin-bottom: 8px; font-size: 0.95rem; color: #555;">Đã hoàn thành: 0 / 0
+                    tài liệu (0%)</p>
+                <div style="background: #e0e0e0; border-radius: 4px; height: 10px; width: 100%; overflow: hidden;">
+                    <div id="progressBar"
+                        style="background: #2ecc71; height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+                </div>
+            </div>
+
+            <!-- Thanh tìm kiếm và Ô sắp xếp -->
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <input type="text" id="searchInput" placeholder="🔍 Nhập tên tài liệu cần tìm..."
+                    onkeyup="searchDocuments()"
+                    style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+
+                <select id="sortSelect" onchange="fetchDocuments()"
+                    style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; background: white; cursor: pointer;">
+                    <option value="newest">📅 Mới nhất</option>
+                    <option value="oldest">⌛ Cũ nhất</option>
+                    <option value="name_asc">🔤 Tên A - Z</option>
+                    <option value="name_desc">🔠 Tên Z - A</option>
+                </select>
+            </div>
+            <ul>
+
+                <!-- Danh sách tài liệu -->
+
+
+                <!-- <li>
+                    <strong>Công thức Đạo hàm</strong> - Môn: Toán - 
+                    <a href="https://example.com/toan" target="_blank">Xem tài liệu</a>
+                </li>
+                <li>
+                    <strong>12 Thì Tiếng Anh</strong> - Môn: Tiếng Anh - 
+                    <a href="https://example.com/anh" target="_blank">Xem tài liệu</a>
+                </li> -->
+            </ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
