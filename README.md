@@ -1,4 +1,4 @@
-# 📚 Mini-Notion: Hệ Thống Quản Lý & Theo Dõi Tiến Độ Học Tập
+# 📚 Mini-Notion: Learning Progress Management & Tracking System
 
 <p align="center">
   <img src="https://img.shields.io/badge/Java-17+-orange.svg?style=for-the-badge&logo=java" alt="Java" />
@@ -8,69 +8,71 @@
   <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License" />
 </p>
 
-> 🚀 **Mini-Notion** là ứng dụng Web Fullstack hỗ trợ sinh viên tổ chức, quản lý tài liệu học tập, lọc theo môn học, tìm kiếm thời gian thực và theo dõi tiến độ hoàn thành trực quan.
+> 🚀 **Mini-Notion** is a Fullstack Web Application designed to help students organize learning materials, filter by subject, perform real-time searches, and visually track study completion progress.
 
 ---
 
-## 🛠️ Công Nghệ Sử Dụng (Tech Stack)
+## 🛠️ Tech Stack
 
-| Tầng (Layer) | Công nghệ / Thư viện |
+| Layer | Technologies / Tools |
 | :--- | :--- |
 | **Frontend** | HTML5, CSS3 (Variables, Flexbox), JavaScript ES6+ (Fetch API, Async/Await, LocalStorage) |
 | **Backend** | Java 17+, Spring Boot, Spring Data JPA, Hibernate |
 | **Database** | MySQL 8.0 |
-| **Công cụ (Tools)** | Maven, Git / GitHub, NetBeans / IntelliJ, MySQL Workbench |
+| **Tools** | Maven, Git / GitHub, NetBeans / IntelliJ IDEA, MySQL Workbench |
 
 ---
 
-## ✨ Tính Năng Nổi Bật (Key Features)
+## ✨ Key Features
 
-- 🔄 **CRUD Trọn vẹn:** Xem, Thêm mới, Sửa thông tin và Xóa tài liệu khỏi hệ thống.
-- 📊 **Dashboard Tiến Độ:** Thanh tiến độ phần trăm (%) tự động tính toán và cập nhật thời gian thực.
-- ☑️ **Đánh Dấu Đã Học:** Checkbox tương tác hỗ trợ lưu trạng thái hoàn thành kèm hiệu ứng gạch ngang.
-- 🔍 **Tìm Kiếm & Lọc Kết Hợp:** Tìm kiếm theo từ khóa real-time kết hợp bộ lọc môn học trên Sidebar.
-- 🔀 **Sắp Xếp Linh Hoạt:** Hỗ trợ sắp xếp tài liệu theo Tên (A-Z, Z-A) hoặc Thời gian tạo (Mới nhất, Cũ nhất).
-- 🌙 **Chế Độ Sáng / Tối (Dark / Light Mode):** Tự động lưu trạng thái giao diện qua LocalStorage.
+- 🔄 **Full CRUD Lifecycle:** View, Add, Edit, and Delete documents seamlessly.
+- 📊 **Progress Dashboard:** Dynamic percentage progress bar automatically calculated and updated in real time.
+- ☑️ **Mark as Learned:** Interactive checkboxes to toggle completion status with a visual strikethrough effect.
+- 🔍 **Combined Search & Filter:** Real-time keyword search paired with subject-based sidebar filtering.
+- 🔀 **Flexible Sorting:** Sort documents by Name (A-Z, Z-A) or Creation Time (Newest, Oldest).
+- 🌙 **Dark / Light Mode:** Persistent theme preference saved via LocalStorage.
 
 ---
 
-## 🔌 Danh Sách API (RESTful Endpoints)
+## 🔌 RESTful API Endpoints
 
-| Phương thức | Đường dẫn API | Mô tả |
+| Method | Endpoint | Description |
 | :---: | :--- | :--- |
-| `GET` | `/api/documents` | Lấy danh sách tất cả tài liệu |
-| `POST` | `/api/documents` | Tạo mới một tài liệu |
-| `PUT` | `/api/documents/{id}` | Cập nhật thông tin/trạng thái tài liệu |
-| `DELETE` | `/api/documents/{id}` | Xóa tài liệu khỏi hệ thống |
+| `GET` | `/api/documents` | Retrieve all documents |
+| `POST` | `/api/documents` | Create a new document |
+| `PUT` | `/api/documents/{id}` | Update document details / status |
+| `DELETE` | `/api/documents/{id}` | Delete a document |
 
 ---
 
-## 🚀 Hướng Dẫn Cài Đặt & Chạy Dự Án (Getting Started)
+## 🚀 Getting Started
 
-### 1. Clone Repository
+Follow these steps to set up and run the project locally:
+
+### 1. Clone the Repository
 ```bash
 git clone [https://github.com/Anhmy1312/Mini-notion.git](https://github.com/Anhmy1312/Mini-notion.git)
 cd Mini-notion
 ```
-### 2. Cấu hình Cơ sở dữ liệu (MySQL)
-* Mở MySQL Workbench và tạo một database mới với tên:
+### 2. Database Configuration (MySQL)
+* Open MySQL Workbench and create a new database:
   ```sql
   CREATE DATABASE mini_notion_db;
   ```
-* Mở file cấu hình trong dự án tại đường dẫn: 
-  `src/main/resources/application.properties`
-* Kiểm tra và điền đúng thông tin kết nối MySQL của bạn (username/password).
+* Open the configuration file at:
+  `src/main/resources/application.properties`
+* Verify and enter your MySQL connection credentials: (username/password).
    ```properties
   spring.datasource.url=jdbc:mysql://localhost:3306/mini_notion_db
   spring.datasource.username=root
-  spring.datasource.password=mật_khẩu_của_bạn
+  spring.datasource.password=YOUR_MYSQL_PASSWORD
   spring.jpa.hibernate.ddl-auto=update
   ```
   
-### 3. Chạy Backend (Spring Boot)
-* Mở dự án bằng IDE (NetBeans / IntelliJ).
-* Tìm đến file chạy chính `MiniNotionApplication.java` và chạy ứng dụng (Run).
-* Đảm bảo server khởi động thành công ở cổng `8080`.
+### 3. Run Backend (Spring Boot)
+* Open the project in your preferred IDE (NetBeans / IntelliJ IDEA).
+* Locate the main entry point `MiniNotionApplication.java` and click Run.
+* Ensure the server starts successfully at port `8080` (`http://localhost:8080`).
 
-### 4. Trải nghiệm Frontend
-* Mở file `index.html` (hoặc chạy qua Live Server trên VS Code) trên trình duyệt để tương tác với giao diện.
+### 4. Run Frontend
+* Open index.html directly in your browser (or launch it using Live Server extension in VS Code) to interact with the application.
